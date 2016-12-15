@@ -32,7 +32,7 @@ function getClosest( elem, selector ) {
 }
 
 function underscored(str) {
-  return str.trim().replace(/[\(\)\+\-]/g,"_").replace(/([a-z\d])([A-Z]+)/g, '$1_$2').replace(/[-\s]+/g, '_').toLowerCase();
+  return str.trim().replace(/[\(\)\+\-\,]/g,"_").replace(/([a-z\d])([A-Z]+)/g, '$1_$2').replace(/[-\s]+/g, '_').toLowerCase();
 }
 
 function addGitButton() {
@@ -64,7 +64,7 @@ function addGitButton() {
                     button.type = "button";
                     button.className = "autosaves clipboard_button hoverable capped story_copy_git";
                     button.title = "Copy Git branch command to your clipboard";
-                    button.setAttribute("data-clipboard-text", "git checkout -b " + storyId + "_" + title);
+                    button.setAttribute("data-clipboard-text", "git checkout -b feature/" + storyId + "_" + title);
                     // TODO: Change the icon to https://raw.githubusercontent.com/primer/octicons/master/lib/svg/git-branch.svg
                     // Get the id copy button
                     var idCopyButton = singleAction.childNodes[5]; // The 5th child is the id button and field
