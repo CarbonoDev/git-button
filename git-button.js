@@ -32,7 +32,7 @@ function getClosest( elem, selector ) {
 }
 
 function underscored(str) {
-  return str.trim().replace(/[\(\)\+\-\,]/g,"_").replace(/([a-z\d])([A-Z]+)/g, '$1_$2').replace(/[-\s]+/g, '_').replace("__", "_").toLowerCase();
+  return str.trim().replace(/\W/g,"_").replace(/([a-z\d])([A-Z]+)/g, '$1_$2').replace(/[-\s]+/g, '_').replace("__", "_").toLowerCase();
 }
 
 function addGitButton() {
