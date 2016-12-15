@@ -10,7 +10,7 @@ git checkout -b feature/1234567_EK_task_title
 
 ## Installation
 
-To use the extension free, follow the instructions under *Source Code* below. If you find the extension useful and would like to support the author, please buy the [Git Button extension](https://chrome.google.com/webstore/detail/git-button/nilhelbfenibcdiafbmlpbomelmdegli) from the Chrome Web Store.
+To use the extension free, follow the instructions under *Source Code* below.
 
 ## Source Code
 
