@@ -37,17 +37,23 @@ function underscored(str) {
 
 function addGitButton() {
     // Grab any action div's
-    var editActions = document.querySelectorAll("div.actions");
+    var storyContainers = document.querySelectorAll("div.story.model");
     // If there were some action divs
-    if (editActions.length > 0) {
+    if (storyContainers.length > 0) {
         // Loop through the action divs
-        editActions.forEach(function(singleAction) {
-            var story = getClosest(singleAction, ".story");
-            var textArea = story.querySelectorAll("textarea.name");
-            var title = underscored(textArea[0].defaultValue);
+        storyContainers.forEach(function (singleStory) {
 
-            var ownerInitials = story.querySelectorAll(".owner_link .initials")[0].textContent;
+            var storyName = singleStory.querySelector("span.story_name")
+            var storyId = singleStory.getAttribute('data-id')
+            if (storyId != null && storyName != null && storyName.textContent.indexOf(storyId) == -1) {
+                var storyNameText = storyName.querySelector("span.tracker_markup").textContent;
+                storyName.insertAdjacentHTML("afterbegin", `<span style="font-size: 90%; font-weight: bold;">[${storyId}]&nbsp;</span>`)
+            }
 
+            var singleAction = singleStory.querySelector('div.actions');
+            if (singleAction == null) {
+                return;
+            }
             // Get the id copy button
             var idCopyButton = singleAction.childNodes[5];
             // If the child node isn't undefined and it does not already have a git button, add one
@@ -55,6 +61,8 @@ function addGitButton() {
             if (typeof singleAction.childNodes[7].className != 'undefined') {
                 if (!singleAction.childNodes[7].className.includes('story_copy_git')) {
                     // Grab the story ID
+                    var storyTitleInput = singleStory.querySelector("fieldset.name").querySelector("textarea");
+                    var storyTitle = storyTitleInput.value;
                     var storyIdInput = singleAction.querySelector("input.text_value");
                     var storyId = storyIdInput.value.substr(1);
                     // Create a new git command button
@@ -66,7 +74,7 @@ function addGitButton() {
                     button.type = "button";
                     button.className = "autosaves clipboard_button hoverable capped story_copy_git";
                     button.title = "Copy Git branch command to your clipboard";
-                    button.setAttribute("data-clipboard-text", "git checkout -b feature/" + storyId + "_" + ownerInitials + "_" + title);
+                    button.setAttribute("data-clipboard-text", "git flow feature start " + storyId + "_" + underscored(storyTitle));
                     // TODO: Change the icon to https://raw.githubusercontent.com/primer/octicons/master/lib/svg/git-branch.svg
                     // Get the id copy button
                     var idCopyButton = singleAction.childNodes[5]; // The 5th child is the id button and field
